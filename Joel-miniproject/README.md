@@ -11,7 +11,7 @@ A simple Laravel application for managing personal tasks through a browser.
 
 ## Features
 
-- Add Task
+- Add Taskgit commit -m "Complete Personal Task Manager"
 - View Tasks
 - Edit Task
 - Delete Task
