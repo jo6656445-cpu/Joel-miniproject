@@ -89,9 +89,10 @@
 
     <h1>Personal Task Manager</h1>
 
-   <a href="/tasks/create" class="add-btn">
-    + Add Task
-</a>
+    <a href="{{ route('tasks.create') }}" class="add-btn">
+        + Add Task
+    </a>
+
     @if(session('success'))
         <p>{{ session('success') }}</p>
     @endif
@@ -136,9 +137,10 @@
                                 @csrf
                                 @method('PUT')
 
-                             <button type="button" onclick="alert('BUTTON WORKS')">
-    + Add Task
-</button>
+                                <button type="submit" class="complete">
+                                    Complete
+                                </button>
+
                             </form>
 
                         @endif
@@ -174,16 +176,6 @@
     @endif
 
 </div>
-<script>
-function showTaskForm() {
-    document.getElementById("taskForm").style.display = "block";
-}
 
-function hideTaskForm() {
-    document.getElementById("taskForm").style.display = "none";
-}
-</script>
 </body>
 </html>
-
-

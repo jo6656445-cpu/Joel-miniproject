@@ -2,50 +2,119 @@
 <html>
 <head>
     <title>Edit Task</title>
+
     <style>
-        body { font-family: Arial, sans-serif; background: #f4f6f8; padding: 30px; }
-        .container { max-width: 600px; margin: auto; background: white; padding: 30px; border-radius: 10px; }
-        input, textarea, select { width: 100%; padding: 10px; margin-top: 5px; margin-bottom: 15px; box-sizing: border-box; }
-        button { background: #2563eb; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
-        a { text-decoration: none; color: #2563eb; }
-        .error { color: #dc2626; }
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 15px;
+            box-sizing: border-box;
+        }
+
+        button, a {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        button {
+            background: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+
+        .back {
+            background: #ddd;
+            color: black;
+        }
     </style>
 </head>
+
 <body>
+
 <div class="container">
+
     <h1>Edit Task</h1>
 
     @if($errors->any())
-        <div class="error">
-            @foreach($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
+
+        @foreach($errors->all() as $error)
+
+            <p style="color:red;">
+                {{ $error }}
+            </p>
+
+        @endforeach
+
     @endif
 
-    <form action="{{ route('tasks.update', $task) }}" method="POST">
+    <form action="{{ route('tasks.update', $task->id) }}"
+          method="POST">
+
         @csrf
+
         @method('PUT')
 
-        <label for="task_name">Task Name</label>
-        <input id="task_name" type="text" name="task_name" value="{{ old('task_name', $task->task_name) }}" required>
+        <label>Task Name</label>
 
-        <label for="description">Description</label>
-        <textarea id="description" name="description" rows="5">{{ old('description', $task->description) }}</textarea>
+        <input type="text"
+               name="task_name"
+               value="{{ $task->task_name }}"
+               required>
 
-        <label for="status">Status</label>
-        <select id="status" name="status">
-            <option value="Pending" @selected(old('status', $task->status) === 'Pending')>Pending</option>
-            <option value="Completed" @selected(old('status', $task->status) === 'Completed')>Completed</option>
+        <label>Description</label>
+
+        <textarea name="description">{{ $task->description }}</textarea>
+
+        <label>Status</label>
+
+        <select name="status">
+
+            <option value="Pending"
+                {{ $task->status == 'Pending' ? 'selected' : '' }}>
+                Pending
+            </option>
+
+            <option value="Completed"
+                {{ $task->status == 'Completed' ? 'selected' : '' }}>
+                Completed
+            </option>
+
         </select>
 
-        <label for="due_date">Due Date</label>
-        <input id="due_date" type="date" name="due_date" value="{{ old('due_date', optional($task->due_date)->format('Y-m-d')) }}">
+        <label>Due Date</label>
 
-        <button type="submit">Update Task</button>
+        <input type="date"
+               name="due_date"
+               value="{{ $task->due_date }}">
+
+        <button type="submit">
+            Update Task
+        </button>
+
+        <a href="{{ route('tasks.index') }}"
+           class="back">
+            Back to Tasks
+        </a>
+
     </form>
 
-    <p><a href="{{ route('tasks.index') }}">Back to Tasks</a></p>
 </div>
+
 </body>
 </html>

@@ -1,0 +1,22 @@
+<form action="{{ route('tasks.store') }}" method="POST">
+    @csrf
+
+    <label>Task Name</label>
+    <input type="text" name="task_name" required>
+
+    <label>Description</label>
+    <textarea name="description"></textarea>
+
+    <label>Due Date</label>
+    <input type="date" name="due_date">
+
+    <label>Status</label>
+    <select name="status">
+        <option value="Pending">Pending</option>
+        <option value="Completed">Completed</option>
+    </select>
+
+    <button type="submit">Save Task</button>
+</form>
+
+<a href="{{ route('tasks.index') }}">Back to Tasks</a>

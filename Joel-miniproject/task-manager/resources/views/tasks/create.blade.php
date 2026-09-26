@@ -37,7 +37,7 @@
 
         button {
             margin-top: 20px;
-            padding: 12px 20px;
+            padding: 10px 20px;
             background: black;
             color: white;
             border: none;
@@ -48,11 +48,8 @@
         .back {
             display: inline-block;
             margin-top: 20px;
+            text-decoration: none;
             color: black;
-        }
-
-        .error {
-            color: red;
         }
     </style>
 </head>
@@ -63,45 +60,19 @@
 
     <h1>Add Task</h1>
 
-    @if ($errors->any())
-        <div class="error">
-            @foreach ($errors->all() as $error)
-                <p>{{ $error }}</p>
-            @endforeach
-        </div>
-    @endif
+    <form method="POST" action="/tasks">
+    @csrf
 
-    <form action="{{ route('tasks.store') }}" method="POST">
+        <label>Task Name</label>
+        <input type="text" name="task_name" required>
 
-        @csrf
+        <label>Description</label>
+        <textarea name="description"></textarea>
 
-        <label for="task_name">Task Name</label>
-        <input
-            type="text"
-            id="task_name"
-            name="task_name"
-            value="{{ old('task_name') }}"
-            required
-        >
+        <label>Due Date</label>
+        <input type="date" name="due_date">
 
-        <label for="description">Description</label>
-        <textarea
-            id="description"
-            name="description"
-            rows="5"
-        >{{ old('description') }}</textarea>
-
-        <label for="due_date">Due Date</label>
-        <input
-            type="date"
-            id="due_date"
-            name="due_date"
-            value="{{ old('due_date') }}"
-        >
-
-        <button type="submit">
-            Save Task
-        </button>
+        <button type="submit">Save Task</button>
 
     </form>
 

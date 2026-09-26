@@ -25,5 +25,5 @@ Route::put('/tasks/{task}', [TaskController::class, 'update'])
 Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])
     ->name('tasks.destroy');
 
-Route::put('/tasks/{task}/status', [TaskController::class, 'updateStatus'])
-    ->name('tasks.status');
+Route::put('/tasks/{task}/complete', [TaskController::class, 'complete'])
+    ->name('tasks.complete');
